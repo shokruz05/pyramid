@@ -3,38 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pyramid Game</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body { background-color: #0d0d0d; color: #e0e0e0; font-family: sans-serif; text-align: center; padding: 20px; }
-        .container { border: 2px solid #c9a050; border-radius: 15px; padding: 20px; background: #1a1a1a; }
-        h1 { color: #c9a050; }
-        .btn { background: #c9a050; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 20px; }
+        .container { border: 2px solid #c9a050; border-radius: 15px; padding: 20px; background: #1a1a1a; box-shadow: 0 0 15px rgba(201, 160, 80, 0.2); }
+        h1 { color: #c9a050; text-transform: uppercase; letter-spacing: 2px; }
+        .rank { font-size: 64px; font-weight: bold; margin: 20px 0; color: #fff; text-shadow: 0 0 10px #c9a050; }
+        .btn { background: #c9a050; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 id="title">Загрузка...</h1>
-        <p id="desc"></p>
-        <div style="font-size: 50px; margin: 20px;">A</div>
-        <button class="btn" id="mainBtn"></button>
+        <h1 id="title">PIRAMIDA</h1>
+        <p id="desc">...</p>
+        <div class="rank">A</div>
+        <button class="btn" id="mainBtn">...</button>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
         
-        // Авто-определение языка по настройкам Telegram
-        let lang = tg.initDataUnsafe.user.language_code === 'uz' ? 'uz' : 'ru';
-
-        const text = {
-            ru: { title: "ПИРАМИДА", desc: "Твоя судьба в твоих руках", btn: "ПРОГОЛОСОВАТЬ" },
-            uz: { title: "PIRAMIDA", desc: "Taqdiringiz o'z qo'lingizda", btn: "OVOZ BERISH" }
+        // Логика перевода
+        const strings = {
+            ru: { desc: "Твоя судьба в твоих руках", btn: "ПРОГОЛОСОВАТЬ" },
+            uz: { desc: "Taqdiringiz o'z qo'lingizda", btn: "OVOZ BERISH" }
         };
 
-        document.getElementById('title').innerText = text[lang].title;
-        document.getElementById('desc').innerText = text[lang].desc;
-        document.getElementById('mainBtn').innerText = text[lang].btn;
+        // Определяем язык (по умолчанию ru)
+        let userLang = tg.initDataUnsafe.user.language_code === 'uz' ? 'uz' : 'ru';
+        
+        document.getElementById('desc').innerText = strings[userLang].desc;
+        document.getElementById('mainBtn').innerText = strings[userLang].btn;
     </script>
 </body>
 </html>
