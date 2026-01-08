@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { background-color: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
-        .container { border: 2px solid #c9a050; border-radius: 15px; padding: 20px; background: #1a1a1a; box-shadow: 0 0 20px rgba(201, 160, 80, 0.3); }
-        h1 { color: #c9a050; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px; }
-        .rank { font-size: 60px; font-weight: bold; color: #fff; text-shadow: 0 0 10px #c9a050; margin: 10px 0; }
-        
-        /* Список участников */
-        .user-list { text-align: left; margin-top: 20px; }
-        .user-item { 
+        body { background-color: #0d0d0d; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; margin: 0; }
+        .container { border: 2px solid #c9a050; border-radius: 15px; padding: 20px; background: #1a1a1a; box-shadow: 0 0 20px rgba(201, 160, 80, 0.4); }
+        h1 { color: #c9a050; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px; font-size: 24px; }
+        .rank { font-size: 70px; font-weight: bold; color: #fff; text-shadow: 0 0 15px #c9a050; margin: 15px 0; }
+        .user-list { margin-top: 25px; text-align: left; }
+        .user-card { 
             display: flex; justify-content: space-between; align-items: center;
-            background: #262626; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid #c9a050;
+            background: #262626; padding: 12px; border-radius: 10px; margin-bottom: 10px;
+            border-left: 5px solid #c9a050; transition: 0.3s;
         }
+        .user-card:active { transform: scale(0.98); background: #333; }
         .vote-btn { 
-            background: #c9a050; color: #000; border: none; padding: 5px 15px; 
-            border-radius: 5px; font-weight: bold; cursor: pointer; 
+            background: linear-gradient(45deg, #c9a050, #e6c27a); color: #000; border: none; 
+            padding: 8px 18px; border-radius: 7px; font-weight: bold; cursor: pointer; 
         }
     </style>
 </head>
@@ -28,13 +28,17 @@
         <div class="rank">A</div>
         
         <div class="user-list">
-            <div class="user-item">
-                <span>1. Shokruz (Admin)</span>
-                <button class="vote-btn" onclick="vote('Shokruz')">Голос</button>
+            <div class="user-card">
+                <span>👤 Shokruz (Owner)</span>
+                <button class="vote-btn" onclick="sendVote('Shokruz')">OVOZ</button>
             </div>
-            <div class="user-item">
-                <span>2. Участник 1</span>
-                <button class="vote-btn" onclick="vote('User1')">Голос</button>
+            <div class="user-card">
+                <span>👤 Player 1</span>
+                <button class="vote-btn" onclick="sendVote('Player 1')">OVOZ</button>
+            </div>
+            <div class="user-card">
+                <span>👤 Player 2</span>
+                <button class="vote-btn" onclick="sendVote('Player 2')">OVOZ</button>
             </div>
         </div>
     </div>
@@ -42,10 +46,11 @@
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
+        tg.MainButton.hide();
 
-        function vote(name) {
-            tg.sendData("Голос за: " + name);
-            tg.close();
+        function sendVote(name) {
+            // Передаем имя того, за кого проголосовали, обратно в бот
+            tg.sendData("VOTE:" + name);
         }
     </script>
 </body>
