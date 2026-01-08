@@ -5,47 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { background-color: #0d0d0d; color: #e0e0e0; font-family: sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .container { border: 2px solid #c9a050; border-radius: 15px; padding: 20px; background: #1a1a1a; margin-top: 10px; }
-        h1 { color: #c9a050; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+        body { background-color: #0d0d0d; color: #e0e0e0; font-family: sans-serif; text-align: center; padding: 20px; }
+        .container { border: 2px solid #c9a050; border-radius: 15px; padding: 20px; background: #1a1a1a; }
+        h1 { color: #c9a050; text-transform: uppercase; letter-spacing: 2px; }
         .rank { font-size: 80px; font-weight: bold; color: #fff; text-shadow: 0 0 15px #c9a050; margin: 20px 0; }
-        .input-group { margin-top: 20px; }
-        input { width: 90%; padding: 12px; border-radius: 8px; border: 1px solid #c9a050; background: #000; color: #fff; margin-bottom: 10px; }
-        .btn { background: #c9a050; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .btn { background: #c9a050; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="title">PIRAMIDA</h1>
-        <p id="desc">...</p>
+        <p id="desc">Загрузка...</p>
         <div class="rank">A</div>
-        
-        <div class="input-group">
-            <input type="text" id="userName" placeholder="...">
-            <button class="btn" id="regBtn" onclick="sendData()">...</button>
-        </div>
+        <button class="btn" id="mainBtn">...</button>
     </div>
-
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        
+        // Определяем язык пользователя в Telegram
         const lang = tg.initDataUnsafe.user.language_code === 'uz' ? 'uz' : 'ru';
         const s = {
-            ru: { desc: "Твоя судьба в твоих руках", name: "Ваше имя", btn: "ЗАРЕГИСТРИРОВАТЬСЯ" },
-            uz: { desc: "Taqdiringiz o'z qo'lingizda", name: "Ismingiz", btn: "RO'YXATDAN O'TISH" }
+            ru: { desc: "Твоя судьба в твоих руках", btn: "ПРОГОЛОСОВАТЬ" },
+            uz: { desc: "Taqdiringiz o'z qo'lingizda", btn: "OVOZ BERISH" }
         };
-
         document.getElementById('desc').innerText = s[lang].desc;
-        document.getElementById('userName').placeholder = s[lang].name;
-        document.getElementById('regBtn').innerText = s[lang].btn;
-
-        function sendData() {
-            let name = document.getElementById('userName').value;
-            if (name.length < 2) return alert("Введите имя / Ism kiriting");
-            tg.sendData(name); // Отправляет имя обратно в бот
-            tg.close();
-        }
+        document.getElementById('mainBtn').innerText = s[lang].btn;
     </script>
 </body>
 </html>
